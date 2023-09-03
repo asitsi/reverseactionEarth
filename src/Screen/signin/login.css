@@ -1,0 +1,261 @@
+.sticky-nav{
+    background-color: #EEF2FA;
+    position: sticky;
+    top: 30px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+    z-index: 5;
+    
+}
+
+.side-main{
+    width: 250px;
+}
+
+.sticky-side{
+    position: fixed;
+    z-index: 6;
+}
+
+
+.dashboard-layout{
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+}
+
+.dash-card{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.chart-area{
+    margin: 50px 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.graph{
+    background-color: white;
+    border-radius: 20px;
+    margin: 0px 10px;
+}
+
+.graph-2{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    border-radius: 20px;
+}
+
+.social-media{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fb-icon{
+    display: flex;
+    background-color: #3B5998;
+    padding: 10px 35px;
+    color: white;
+    border-radius: 5px;
+    margin: 0px 5px;
+    cursor: pointer;
+}
+
+.g-icon{
+    display: flex;
+    background-color: #DD4B39;
+    padding: 10px 35px;
+    color: white;
+    border-radius: 5px;
+    margin: 0px 5px;
+    cursor: pointer;
+}
+
+.social-login{
+    display: flex;
+    justify-content: center;
+     align-items: center;
+    margin: 20px 0px;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.social-login hr{
+    border: none;
+    border-top: 1px solid rgb(136, 136, 136);
+    width: 100%;
+    margin: 10px;
+}
+
+.profile{
+    padding: 50px;
+}
+
+.tabsactive-tabs{
+    padding-bottom: 3px;
+    border-bottom: 3px solid var(--main-color);
+}
+
+.table-head{
+    display: flex;
+    margin: 0px 20px;
+    margin-top: 30px;
+    font-weight: 800;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox-franchise{
+    width: 500px;
+    margin: 0px 10px;
+}
+
+.task-tab{
+    display: flex;
+    align-items: center;
+}
+
+.table-head button{
+    margin-right: 5px;
+}
+
+.mi-table{
+    margin: 20px 20px;
+    position: relative;
+    z-index: 0;
+}
+.action-btn{
+    display: flex;
+}
+.action-btn button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin: 0px 5px;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 100%;
+}
+
+.action-btn button:hover{
+    cursor: pointer;
+    background-color: var(--main-hover);
+}
+
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+.card {
+    width: 30%;
+    margin-bottom: 20px;
+  }
+
+.consultant_card {
+  width: 32%;
+    margin-bottom: 20px;
+}
+
+  .card img {
+    width: 100%;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+    }
+  }
+
+  .product-details-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .product-image-section {
+    width: 50%;
+  }
+  
+  .main-image {
+    width: 100%;
+  }
+  
+  .thumbnail-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .thumbnail {
+    width: 30%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .selected {
+    border: 1px solid #000;
+  }
+  
+  .product-info-section {
+    width: 50%;
+    padding: 10px;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .product-details-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .product-image-section,
+    .product-info-section {
+      width: 100%;
+    }
+  }
+
+.popup-inner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 70%;
+  gap: 1rem;
+  margin: 0 2rem;
+}
+  
+@media (max-width: 768px) {
+  .popup-inner {
+    width: 90%;
+    margin: 0 1rem;
+  }
+}
+
+.input-error {
+  font-size: 10px;
+  color: red;
+}
+
+.loading {
+  animation: rotate 2s linear infinite;
+  color:#501F3A;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.card-heading {
+  text-align: center;
+  margin: 1rem 0 !important;
+  font-size: 20px !important;
+}
