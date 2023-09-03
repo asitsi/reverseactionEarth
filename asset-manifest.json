@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Reverseaction.earth/static/css/main.073c9b0a.css",
+    "main.js": "/Reverseaction.earth/static/js/main.2d94eb1b.js",
+    "static/js/787.92c7c04e.chunk.js": "/Reverseaction.earth/static/js/787.92c7c04e.chunk.js",
+    "static/media/logo.svg": "/Reverseaction.earth/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Reverseaction.earth/index.html",
+    "main.073c9b0a.css.map": "/Reverseaction.earth/static/css/main.073c9b0a.css.map",
+    "main.2d94eb1b.js.map": "/Reverseaction.earth/static/js/main.2d94eb1b.js.map",
+    "787.92c7c04e.chunk.js.map": "/Reverseaction.earth/static/js/787.92c7c04e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.2d94eb1b.js"
+  ]
+}
