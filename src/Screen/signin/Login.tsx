@@ -22,14 +22,20 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const theme = createTheme();
 
+interface errorObject {
+  email: '';
+  password: '';
+  message: ''
+} 
+
 export default function SignIn() {
   const [passwordError, SetPasswordError] = useState(null)
   const navigate = useNavigate();
   // const [role, setRole] = useState();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.target);
     const user = Object.fromEntries(data.entries());
@@ -122,7 +128,7 @@ export default function SignIn() {
                 autoComplete="email"
                 autoFocus
               />
-              {errors.email && <p className="input-error">**{errors.email}</p>}
+              {errors?.email && <p className='input-error'>**{errors.email}</p>}
               <CssTextField
                 margin="normal"
                 required
@@ -135,8 +141,8 @@ export default function SignIn() {
                 helperText={passwordError}
                 error={Boolean(passwordError)}
               />
-              {errors.password && <p className="input-error">**{errors.password}</p>}
-              {errors.message && <p className="input-error">**{errors.message}</p>}
+              {errors.password && <p className='input-error'>**{errors.password}</p>}
+              {errors.message && <p className='input-error'>**{errors.message}</p>}
               <FormControlLabel
                 control={
                   <Checkbox
