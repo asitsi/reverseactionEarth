@@ -22,11 +22,11 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const theme = createTheme();
 
-interface errorObject {
-  email: '';
-  password: '';
-  message: ''
-} 
+// interface errorObject {
+//   email: '';
+//   password: '';
+//   message: ''
+// } 
 
 export default function SignIn() {
   const [passwordError, SetPasswordError] = useState(null)
@@ -46,7 +46,7 @@ export default function SignIn() {
     //     return SetPasswordError('Must have at least one uppercase letter, one lowercase letter, one number and one special character & min 10 character')
     // }
     SetPasswordError(null)
-    localStorage.setItem("user", JSON.stringify(user));
+    // localStorage.setItem("user", JSON.stringify(user));
     
 
     console.log({
@@ -55,7 +55,8 @@ export default function SignIn() {
     });
 
     if(user.email === 'admin@gmail.com' && user.password === 'Admin@1234') {
-      navigate("/login/deshboard");
+      localStorage.setItem("roles", "1");
+      navigate("/dashboard");
       setIsLoading(false)
     } else {
       setErrors({message:'Your Email and Password is worng'});
