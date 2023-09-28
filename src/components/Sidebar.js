@@ -15,12 +15,12 @@ const Sidebar = ({ children, Roles }) => {
     <div>
       <div className="container">
         <div style={{ width: isOpen ? "250px" : "60px" }} className="sidebar">
-          <div className="top_section" style={{ backgroundColor: 'rgba(56,204,119,1)', display: 'flex', justifyContent: 'center' }}>
+          <div className="top_section" style={{ backgroundColor: 'rgba(8,149,81,255)', display: 'flex', justifyContent: 'center' }}>
             <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
               Logo
             </h1>
           </div>
-          <div style={{ backgroundColor: 'rgba(56,204,119,1)', height: '100vh', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <div style={{ backgroundColor: 'rgba(8,149,81,255)', height: '100vh', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             {menuItem.map((item, index) => (
               <NavLink
                 to={item.path}
@@ -28,7 +28,7 @@ const Sidebar = ({ children, Roles }) => {
                 className="link"
                 activeclassName="active"
               >
-                <div style={{ backgroundColor: '#fff', display: 'flex', justifyContent: 'center', width: '150px', padding: '0.3rem 1rem', borderRadius: '30px', gap: '0.8rem', alignItems:'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '150px', gap: '1rem', alignItems:'center', transition: 'background-color 0.5s ease', margin:'1rem 0' }}>
                   <div className="icon">{item.icon}</div>
                   <div
                     style={{ display: isOpen ? "block" : "none" }}

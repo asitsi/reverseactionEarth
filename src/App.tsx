@@ -28,7 +28,7 @@ function App() {
                     <Sidebar children={undefined} Roles={1} />
                   </div>
                 </div>
-                <div>
+                <div style={{backgroundColor: 'rgba(237,243,239,255)'}}>
                   <div className="">
                     <NavBar page="Dashboard" />
                   </div>
@@ -48,7 +48,7 @@ function App() {
                     <Sidebar children={undefined} Roles={1} />
                   </div>
                 </div>
-                <div>
+                <div style={{backgroundColor: 'rgba(237,243,239,255)'}}>
                   <div className="">
                     <NavBar page="" />
                   </div>
