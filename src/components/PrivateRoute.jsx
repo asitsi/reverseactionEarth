@@ -5,8 +5,6 @@ const PrivateRoute = ({ allowedRoles }) => {
     // const user = JSON.parse(window.localStorage.getItem('user'));
     const role = 1
 
-    console.log("testinggggg")
-
     return (
         [role]?.find(role => allowedRoles?.includes(role))
         ? <Outlet />

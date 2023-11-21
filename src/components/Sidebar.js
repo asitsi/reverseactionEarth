@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import menuItem from './menuItems'
+import menuItem from './menuItems';
+import './Sidebar.css'
 // import MenuItemConsultant from "./utiils/MenuItemConsultant";
 
 const Sidebar = ({ children, Roles }) => {
@@ -28,11 +29,11 @@ const Sidebar = ({ children, Roles }) => {
                 className="link"
                 activeclassName="active"
               >
-                <div style={{ display: 'flex', justifyContent: 'center', width: '150px', gap: '1rem', alignItems:'center', transition: 'background-color 0.5s ease', margin:'1rem 0' }}>
-                  <div className="icon">{item.icon}</div>
+                <div className="menu-Item-card">
+                  <div className="menu-Item-card-icon">{item.icon}</div>
                   <div
                     style={{ display: isOpen ? "block" : "none" }}
-                    className="link_text"
+                    className="menu-Item-card-link_text"
                   >
                     {item.name}
                   </div>

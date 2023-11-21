@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 * {
     --main-color: #501F3A;
     --main-hover: #CB2D6F;
@@ -26,6 +33,8 @@
 }
 
 .profile-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -37,7 +46,9 @@
 }
 
 .basic-info {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     font-weight: 600;
     padding: 10px;
@@ -88,12 +99,20 @@
 .basic-input:focus {
     border: none;
     border-bottom: 2px solid var(--main-hover);
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
     transition: 0.3s;
 }
 
 .nav-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin: 10px 0 10px 0;
     /* width: calc(100% - 100px); */
@@ -101,7 +120,11 @@
 }
 
 .right-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-color: white;
     color: rgba(56, 204, 119, 1);
@@ -132,11 +155,17 @@
     color: rgb(0, 0, 0);
     height: 100vh;
     width: 200px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
     transition: all 0.5s;
 }
 
 .top_section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding: 20px 15px;
 }
@@ -146,34 +175,11 @@
 }
 
 .bars {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-size: 25px;
     margin-left: 50px;
-}
-
-.link {
-    display: flex;
-    color: #6a6c6d;
-    padding: 10px 15px;
-    gap: 15px;
-    transition: all 0.5s;
-}
-
-.link:hover {
-    color: rgba(56, 204, 119, 1);
-    transition: all 0.5s;
-    background-color: var(--white);
-    margin-bottom: 1rem;
-    border-radius: 30px;
-    padding: 1px 15px
-}
-
-.link:hover>div>.link_text {
-    color: rgba(56, 204, 119, 1) !important;
-}
-
-.link:hover>div>.icon {
-    color: rgba(56, 204, 119, 1) !important;
 }
 
 .active {
@@ -181,6 +187,8 @@
     background-color: var(--white);
     border-radius: 30px;
     padding: 0.1rem 1rem;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
 
@@ -203,7 +211,11 @@
 }
 
 .message {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin: 10px 0px;
 }

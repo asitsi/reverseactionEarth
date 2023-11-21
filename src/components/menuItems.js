@@ -1,6 +1,7 @@
 import {
     FaTh,
-    FaUserAlt
+    FaUserAlt,
+    FaBlackberry
   } from "react-icons/fa";
   
 
@@ -14,6 +15,11 @@ const menuItem = [
       path: "/members",
       name: "Members",
       icon: <FaUserAlt />,
+    },
+    {
+      path: "/challenges",
+      name: "Challenges",
+      icon: <FaBlackberry />,
     },
   ];
 

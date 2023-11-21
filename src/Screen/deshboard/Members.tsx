@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import FormControl from '@mui/material/FormControl';
 import { Box, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
@@ -8,9 +9,14 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Popup from '../../components/Popup';
+import { ApiCallHook } from '../../components/CustomHooks/ApiCallHook';
+import { BaseUrl } from '../../components/Constant/BaseUrl';
+import CustomNoRowsOverlay from '../../components/CustomNoRowsOverlay';
+import { getMembers, uploadCSV } from '../../services/MemberServise';
 
 const Members = () => {
-    const [dataRows, setDataRows] = useState(rows);
+    const [data, error, loading] = ApiCallHook(`${BaseUrl}/v1/users`);
+    const [dataRows, setDataRows] = useState<any>(data);
     const [ButtonPopup, setButtonPopup] = useState(false);
     const [Display, setDisplay] = useState("none");
 
@@ -21,6 +27,43 @@ const Members = () => {
     function handleMouseDownPassword(event: any): void {
         throw new Error("Function not implemented.");
     }
+
+    const handleFileUpload = (event: any) => {
+        const file = event.target.files[0]; // Get the first selected file
+        if (file) {
+          if (file.type === 'text/csv') {
+            // File is a CSV file
+            const reader = new FileReader();
+            reader.onload = async (e:any) => {
+              const csvData = e.target.result;
+              console.log('CSV Data:', csvData);
+              // Now you can work with the CSV data
+              await uploadCSV(csvData).then((res) => {
+                console.log(res)
+              }).catch(error => console.log(error))
+            };
+            reader.readAsText(file);
+          } else {
+            // File is not a CSV
+            console.log('Please select a CSV file.');
+          }
+        }
+      };
+
+    //   TODO: add Loading , error
+    useEffect(() => {
+        getMembers().then((res: any) => {
+            console.log("resresresres", res)
+            const formattedData = res?.map((item: any) => ({
+                ...item,
+                createdAt: new Date(item.createdAt).toISOString().split('T')[0], // Format date
+            }));
+            console.log("formattedData", formattedData, data)
+            setDataRows(formattedData);
+        }).catch(error => { console.log("error", error) })
+        setDataRows(data)
+    }, [loading])
+      
 
     return (
         <div className="Main_Container">
@@ -54,10 +97,12 @@ const Members = () => {
                     </div>
                 </div>
 
-                <div style={{ height: '100%', width: '100%' }}>
+                <div style={{ height: data ? '100%' : '70vh', width: '100%' }}>
+                    {loading ? <>Loading</> :
                     <DataGrid
                         rows={dataRows}
                         columns={columns}
+                        slots={{noRowsOverlay: CustomNoRowsOverlay}}
                         initialState={{
                             pagination: {
                                 paginationModel: { page: 0, pageSize: 50 },
@@ -65,7 +110,7 @@ const Members = () => {
                         }}
                         pageSizeOptions={[50, 50]}
                         checkboxSelection
-                    />
+                    />}
                 </div>
                 <Popup
                     trigger={ButtonPopup}
@@ -74,9 +119,9 @@ const Members = () => {
                 >
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
                         <h1>Upload CVG</h1>
-                        <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} style={{ background: 'rgba(56, 204, 119, 1)' }}>
+                        <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} style={{ background: 'rgba(56, 204, 119, 1)', margin: '0 1.5rem' }}>
                             Upload file
-                            <VisuallyHiddenInput type="file" />
+                            <VisuallyHiddenInput type="file" accept=".csv" onChange={handleFileUpload}/>
                         </Button>
                     </Box>
                 </Popup>
@@ -101,7 +146,7 @@ export const rows = [
 ];
 
 export const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'id', headerName: 'Id', width: 70 },
     { field: 'image', width: 80, renderCell: (params) => <img src={params.value} alt={params.value} /> },
 
     { field: 'Display_Name', headerName: 'Display Name', width: 130 },
@@ -118,7 +163,7 @@ export const columns: GridColDef[] = [
         type: 'string',
         width: 160,
     },
-    { field: 'Date_Joined', headerName: 'Date Joined', width: 130 },
+    { field: 'createdAt', headerName: 'Date Joined', width: 130 },
     { field: 'Last_Seen', headerName: 'Last Seen', width: 130 },
 ];
 

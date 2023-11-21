@@ -17,81 +17,54 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-// import { login } from '../servies/Authentication'
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { login } from "../../services/Authentication";
 
 const theme = createTheme();
 
-// interface errorObject {
-//   email: '';
-//   password: '';
-//   message: ''
-// } 
-
 export default function SignIn() {
   const [passwordError, SetPasswordError] = useState(null)
-  const navigate = useNavigate();
-  // const [role, setRole] = useState();
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
+
+  // Navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.target);
     const user = Object.fromEntries(data.entries());
-    setIsLoading(true)
 
-    // Password Validation check
-    // if (!(user.password.match(/[A-Z]/) != null && user.password.match(/[a-z]/) != null && user.password.match(/[0-9]/) != null && user.password.match(/[#?!@$%^&*-]/) != null && user.password.length >= 10)) {
-    //     return SetPasswordError('Must have at least one uppercase letter, one lowercase letter, one number and one special character & min 10 character')
-    // }
     SetPasswordError(null)
-    // localStorage.setItem("user", JSON.stringify(user));
-    
 
-    console.log({
-      email: user.email,
-      password: user.password,
-    });
-
-    if(user.email === 'admin@gmail.com' && user.password === 'Admin@1234') {
-      localStorage.setItem("roles", "1");
-      navigate("/dashboard");
-      setIsLoading(false)
-    } else {
-      setErrors({message:'Your Email and Password is worng'});
-      setIsLoading(false)
-    }
-    
-    // await login({
+    // console.log({
     //   email: user.email,
-    //   password: user.password
-    // }).then((res) => {
-    //   if (res.data.user.user_type === 'ADMIN') {
-    //     setRole([1]);
-    //     localStorage.setItem("roles", [1]);
-    //     navigate("/dashboard");
-    //   }else if (res.data.user.user_type === 'Consultant') {
-    //     setRole([5])
-    //     localStorage.setItem("roles", [5]);
-    //     localStorage.setItem("userId", res.data.user.user_id);
-    //     navigate("/consultant/Dashboard");
-    //   } else if (res.data.user.user_type === 'Franchise') {
-    //     setRole([2])
-    //     localStorage.setItem("roles", [2]);
-    //     navigate("/Frenchise/Dashboard");
-    //   }
-    //   else {
-    //     navigate("/vendor/Dashboard");
-    //     console.log('else', role[3])
-    //   }
-    // }).catch(error => {
-    //   console.log(error)
-    //   // setErrors(error.response.data);
-    //   // console.log(error.response.data)
-    // }).finally(
-    //   setIsLoading(false)
-    // )
+    //   password: user.password,
+    // });
+    if (user.email === '' || user.password === '') {
+      if (user.email === '') {
+        return setErrors({ email: 'Please Inter your Email' });
+      }
+      return setErrors({ password: 'Please Inter your Password' });
+    } else {
+      setIsLoading(true);
+      await login({
+        email: user.email,
+        password: user.password,
+        userType: 2
+      }).then((res) => {
+        if (res.success === true) {
+          localStorage.setItem("ReservationAccessToken", JSON.stringify(res.data?.accessToken));
+          navigate("/dashboard");
+          setIsLoading(false)
+        }
+      }).catch(error => {
+        setIsLoading(false)
+        // console.log(error, error.response?.data?.error.message);
+        setErrors({ message: error.response?.data?.error.message });
+        // console.log(error.response.data)
+      })
+    }
   };
 
   return (
@@ -107,7 +80,7 @@ export default function SignIn() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "#501F3A" }}>
+            <Avatar sx={{ m: 1, bgcolor: "rgb(70,149,82)" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -142,16 +115,16 @@ export default function SignIn() {
                 helperText={passwordError}
                 error={Boolean(passwordError)}
               />
-              {errors.password && <p className='input-error'>**{errors.password}</p>}
+              {errors?.password && <p className='input-error'>**{errors?.password}</p>}
               {errors.message && <p className='input-error'>**{errors.message}</p>}
               <FormControlLabel
                 control={
                   <Checkbox
                     value="remember"
                     sx={{
-                      color: "#501F3A",
+                      color: "rgb(70,149,82)",
                       "&.Mui-checked": {
-                        color: "#501F3A",
+                        color: "rgb(70,149,82)",
                       },
                     }}
                   />
@@ -165,7 +138,7 @@ export default function SignIn() {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={isLoading}
               >
-                {isLoading ? <RestartAltIcon className="loading"/> : 'Sign in'}
+                {isLoading ? <RestartAltIcon className="loading" /> : 'Sign in'}
               </ColorButton>
               <Grid container>
                 <Grid item xs>
@@ -173,7 +146,7 @@ export default function SignIn() {
                     href="#"
                     variant="body2"
                     sx={{
-                      color: "#501F3A",
+                      color: "rgb(70,149,82)",
                     }}
                   >
                     Forgot password?
@@ -184,7 +157,7 @@ export default function SignIn() {
                     href="/signup"
                     variant="body2"
                     sx={{
-                      color: "#501F3A",
+                      color: "rgb(70,149,82)",
                     }}
                   >
                     {"Don't have an account? Sign Up"}
@@ -217,31 +190,31 @@ export default function SignIn() {
 
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
-    color: "#CB2D6F",
+    color: "rgb(70,149,82)",
   },
   "& .css-1wc848c-MuiFormHelperText-root.Mui-error": {
     color: "red",
     fontSize: "8px"
   },
   "& .MuiInput-underline:after": {
-    borderBottomColor: "#CB2D6F",
+    borderBottomColor: "rgb(70,149,82)",
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#501F3A",
+      borderColor: "rgb(70,149,82)",
     },
     "&:hover fieldset": {
       borderColor: "#14A098",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#CB2D6F",
+      borderColor: "rgb(70,149,82)",
     },
   },
 });
 
 const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#501F3A"),
-  backgroundColor: "#501F3A",
+  color: theme.palette.getContrastText("rgb(70,149,82)"),
+  backgroundColor: "rgb(70,149,82)",
   "&:hover": {
     backgroundColor: "#CB2D6F",
   },

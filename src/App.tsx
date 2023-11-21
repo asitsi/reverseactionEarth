@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar';
 import PrivateRoute from './components/PrivateRoute';
 import NavBar from './components/NavBar';
 import Members from './Screen/deshboard/Members';
+import Challenges from './Screen/deshboard/Challenges';
 
 const ROLES = {
   'Admin': 1,
@@ -54,6 +55,26 @@ function App() {
                   </div>
                   <div>
                     <Members />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/challenges"
+            element={
+              <div className="dashboard-layout">
+                <div className="side-main">
+                  <div className="sticky-side">
+                    <Sidebar children={undefined} Roles={1} />
+                  </div>
+                </div>
+                <div style={{backgroundColor: 'rgba(237,243,239,255)'}}>
+                  <div className="">
+                    <NavBar page="" />
+                  </div>
+                  <div>
+                    <Challenges />
                   </div>
                 </div>
               </div>
