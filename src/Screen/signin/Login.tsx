@@ -216,6 +216,6 @@ const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("rgb(70,149,82)"),
   backgroundColor: "rgb(70,149,82)",
   "&:hover": {
-    backgroundColor: "#CB2D6F",
+    backgroundColor: "#60BD6E",
   },
 }));

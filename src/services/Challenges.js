@@ -3,13 +3,15 @@ import { BaseUrl } from "../components/Constant/BaseUrl"
 const bearerToken = JSON.parse(localStorage.getItem('ReservationAccessToken'));
 
 export const createNewChallenges = async (allData) => {
+    console.log("allData",allData, "bearerToken.jwtToken", bearerToken)
     const response = await axios.post(`${BaseUrl}/v1/challenges`, allData, {
         headers: {
-            'Authorization': `Bearer ${bearerToken.jwtToken}`,
+            'Authorization': `Bearer ${bearerToken}`,
             'Content-Type': 'application/json',
         },
     })
-    console.log(response)
+    console.log("response",response)
+    return response
 }
 
 export const getAllChallenges = async (res) => {

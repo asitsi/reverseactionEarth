@@ -1,11 +1,9 @@
 import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -13,16 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
-// import { login } from '../servies/Authentication'
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { createNewChallenges } from "../services/Challenges";
 
 const theme = createTheme();
 
 const CreateNewChallenges = ({ setCreateChallengesScreen }: any) => {
-  const [passwordError, SetPasswordError] = useState(null)
   const navigate = useNavigate();
-  // const [role, setRole] = useState();
+  const [passwordError, SetPasswordError] = useState(null)
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
   const [onLoading, setOnLoading] = useState<Boolean>(false);
@@ -39,13 +35,25 @@ const CreateNewChallenges = ({ setCreateChallengesScreen }: any) => {
       rewardDesc: user.reward_discreption,
       challengeStatus: "draft",
       type: user.row_radio_buttons_group,
-      actionIds: [1, 2, 3]
+      actionIds: [1, 2],
+      startDate: "2023-11-25",
+      endDate: "2023-12-31"
     }
 
-    console.log("allData",allData)
+    console.log("allData", allData)
 
-  setOnLoading(true)
-  createNewChallenges(allData);
+    setOnLoading(true);
+    createNewChallenges(allData)
+    .then((res) => {
+      setOnLoading(false);
+      console.log(res);
+      setCreateChallengesScreen(false);
+    }).catch((error) => {
+      setOnLoading(false);
+      console.log(error);
+    }).finally(() => {
+      setOnLoading(false);
+    });
   }
 
   return (
@@ -101,13 +109,13 @@ const CreateNewChallenges = ({ setCreateChallengesScreen }: any) => {
               name="row_radio_buttons_group"
 
             >
-              <FormControlLabel value="Team" control={<Radio sx={{
+              <FormControlLabel value="team" control={<Radio sx={{
                 color: 'green',
                 '&.Mui-checked': {
                   color: 'green',
                 },
               }} />} label="Team" />
-              <FormControlLabel value="Individual" control={<Radio sx={{
+              <FormControlLabel value="individual" control={<Radio sx={{
                 color: 'green',
                 '&.Mui-checked': {
                   color: 'green',
@@ -197,16 +205,6 @@ const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("rgb(70,149,82)"),
   backgroundColor: "rgb(70,149,82)",
   "&:hover": {
-    backgroundColor: "#CB2D6F",
+    backgroundColor: "#60BD6E",
   },
 }));
-
-// {
-    
-//   "name":"chaalenge 1",
-//   "description": "chaalenge 1 description",
-//   "rewardDesc":"rewardDesc description",
-//   "challengeStatus":"draft",
-//   "type":"individual",
-//   "actionIds":[1,2,3]
-// }
