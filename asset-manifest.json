@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/reverseactionEarth/static/css/main.1435f28e.css",
-    "main.js": "/reverseactionEarth/static/js/main.f895185a.js",
+    "main.css": "/reverseactionEarth/static/css/main.9c76c222.css",
+    "main.js": "/reverseactionEarth/static/js/main.11c7b0a1.js",
     "static/js/787.92c7c04e.chunk.js": "/reverseactionEarth/static/js/787.92c7c04e.chunk.js",
     "index.html": "/reverseactionEarth/index.html",
-    "main.1435f28e.css.map": "/reverseactionEarth/static/css/main.1435f28e.css.map",
-    "main.f895185a.js.map": "/reverseactionEarth/static/js/main.f895185a.js.map",
+    "main.9c76c222.css.map": "/reverseactionEarth/static/css/main.9c76c222.css.map",
+    "main.11c7b0a1.js.map": "/reverseactionEarth/static/js/main.11c7b0a1.js.map",
     "787.92c7c04e.chunk.js.map": "/reverseactionEarth/static/js/787.92c7c04e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1435f28e.css",
-    "static/js/main.f895185a.js"
+    "static/css/main.9c76c222.css",
+    "static/js/main.11c7b0a1.js"
   ]
 }
