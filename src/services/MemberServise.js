@@ -14,12 +14,13 @@ export const getMembers = async () => {
 }
 
 export const uploadCSV = async (res) => {
-    const response = await axios.post(`${BaseUrl}/v1/users/bulk`, res,{
+    console.log("resresres", res)
+    const response = await axios.post(`http://161.97.89.104:3000/api/v1/users/bulk`, res,{
         headers: {
             'Authorization': `Bearer ${bearerToken}`,
             'Content-Type': 'application/json', // Set the content type as needed
         }
     });
-    console.log(response.data)
+    console.log("response.data",response.data)
     return response.data;
 }

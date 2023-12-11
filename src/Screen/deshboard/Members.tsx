@@ -13,12 +13,21 @@ import { ApiCallHook } from '../../components/CustomHooks/ApiCallHook';
 import { BaseUrl } from '../../components/Constant/BaseUrl';
 import CustomNoRowsOverlay from '../../components/CustomNoRowsOverlay';
 import { getMembers, uploadCSV } from '../../services/MemberServise';
+import axios from 'axios';
 
 const Members = () => {
     const [data, error, loading] = ApiCallHook(`${BaseUrl}/v1/users`);
     const [dataRows, setDataRows] = useState<any>(data);
     const [ButtonPopup, setButtonPopup] = useState(false);
     const [Display, setDisplay] = useState("none");
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [uploadFileMessage, setUploadFileMessage] = useState<String>('')
+    const [uploadFileErrorMessage, setUploadFileErrorMessage] = useState<String>('')
+
+
+    // LocalStroage
+    const SlocalStoreage = localStorage.getItem('ReservationAccessToken');
+    const bearerToken = SlocalStoreage !== null ? JSON.parse(SlocalStoreage) : null;
 
     function handleClickShowPassword(event: any): void {
         throw new Error("Function not implemented.");
@@ -27,28 +36,6 @@ const Members = () => {
     function handleMouseDownPassword(event: any): void {
         throw new Error("Function not implemented.");
     }
-
-    const handleFileUpload = (event: any) => {
-        const file = event.target.files[0]; // Get the first selected file
-        if (file) {
-          if (file.type === 'text/csv') {
-            // File is a CSV file
-            const reader = new FileReader();
-            reader.onload = async (e:any) => {
-              const csvData = e.target.result;
-              console.log('CSV Data:', csvData);
-              // Now you can work with the CSV data
-              await uploadCSV(csvData).then((res) => {
-                console.log(res)
-              }).catch(error => console.log(error))
-            };
-            reader.readAsText(file);
-          } else {
-            // File is not a CSV
-            console.log('Please select a CSV file.');
-          }
-        }
-      };
 
     //   TODO: add Loading , error
     useEffect(() => {
@@ -63,6 +50,44 @@ const Members = () => {
         }).catch(error => { console.log("error", error) })
         setDataRows(data)
     }, [loading])
+
+    const handleFileUpload = async (event: any) => {
+        try {
+            if (event.target.files[0]) {
+                if (event.target.files[0].type === 'text/csv') {
+                    const formData = new FormData();
+                    formData.append('file', event.target.files[0]);
+
+                    console.log(`Bearer ${bearerToken}`)
+
+                    // Replace 'your-upload-endpoint' with the actual endpoint for file upload
+                    const response = await axios.post('http://161.97.89.104:3000/api/v1/users/bulk', formData, {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`,
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    });
+
+                    console.log('File uploaded successfully:', response.data);
+
+                    if (response.data.success === true) {
+                        setUploadFileMessage(response.data.message);
+                        setButtonPopup(false);
+                    } else {
+                        setUploadFileErrorMessage('Something Went Wrong')
+                    }
+                } else {
+                    // File is not a CSV
+                    setUploadFileErrorMessage('Please select a CSV file.');
+                }
+            }
+        } catch (error: any) {
+            console.log('File uploaded successfully:', error);
+            if (error?.response?.status) {
+                setUploadFileErrorMessage("First column should be email, email column required on csv");
+            }
+        }
+    };
       
 
     return (
@@ -93,7 +118,7 @@ const Members = () => {
                                 label="Search"
                             />
                         </FormControl>
-                        <div className="add_member" onClick={() => setButtonPopup(true)}><AddIcon /><span>Add Members</span></div>
+                        <div className="add_member" onClick={() => { setButtonPopup(true); setUploadFileMessage('') }}><AddIcon /><span>Add Members</span></div>
                     </div>
                 </div>
 
@@ -112,6 +137,7 @@ const Members = () => {
                         checkboxSelection
                     />}
                 </div>
+
                 <Popup
                     trigger={ButtonPopup}
                     setTrigger={setButtonPopup}
@@ -123,10 +149,11 @@ const Members = () => {
                             Upload file
                             <VisuallyHiddenInput type="file" accept=".csv" onChange={handleFileUpload}/>
                         </Button>
+                        {uploadFileMessage !== '' && <span style={{ color: 'rgba(56, 204, 119, 1)', textAlign: 'center' }}>{uploadFileMessage}</span>}
+                        {uploadFileErrorMessage !== '' && <span style={{ color: 'red', textAlign: 'center' }}>{uploadFileErrorMessage}</span>}
                     </Box>
                 </Popup>
             </section>
-
         </div>
     );
 };
